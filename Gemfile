@@ -1,0 +1,5 @@
+source 'https://rubygems.org'
+gem 'asciidoctor'
+gem 'pygments.rb'
+gem 'asciidoctor-pdf'
+gem 'asciidoctor-epub3'
