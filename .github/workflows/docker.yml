@@ -1,0 +1,23 @@
+name: Publish To Docker Image
+on:
+  push:
+    branches: master
+    paths-ignore:
+      - '*eadme*'
+jobs:
+  push_to_registry:
+    name: PUsh Docker image to Docker Hub
+    runs-on: ubuntu-latest
+    permissions:
+      packages: write
+      contents: read
+    steps:
+      - name: Check out the repo
+        uses: actions/checkout@v2
+      - name: Push to GitHub Packages
+        uses: docker/build-push-action@v1
+        with:
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          registry: docker.pkg.github.com
+          repository: nkijak/book-binder/worker
