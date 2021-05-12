@@ -12,6 +12,6 @@ shell:
 	-it \
 	--env DIST=/book \
 	--volume $(PWD):/book \
-	--volume $(PWD)/../Arduino-Inspiration-Code:/Arduino-Inspiration-Code  \
+	--volume $(PWD)/../Code:/code  \
 	$(IMAGE) \
 	sh
