@@ -44,6 +44,7 @@ class RenderBookJob < ApplicationJob
           d = Dir.new(outdir)
           pdfs = d.grep(/\.+pdf/)
           epubs = d.grep(/\.+epub/)
+          puts "found #{pdfs} and #{epubs}"
           book.pdf.attach(io: File.open(File.join(outdir, pdfs.first))) if pdfs.any?
           book.epub.attach(io: File.open(File.join(outdir, epubs.first)), ) if epubs.any?
           book.save!

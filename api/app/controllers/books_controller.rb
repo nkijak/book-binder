@@ -1,5 +1,5 @@
 class BooksController < ApplicationController
-  before_action :set_book, only: [:show, :update, :destroy]
+  before_action :set_book, only: [:show, :update, :destroy, :render]
 
   # GET /books
   def index
@@ -11,6 +11,13 @@ class BooksController < ApplicationController
   # GET /books/1
   def show
     render json: @book
+  end
+
+  # POST /books/1/render
+  def render(*args)
+    puts args
+    RenderBookJob.perform_later @book
+    render :nothing => true, status: :no_content
   end
 
   # POST /books
