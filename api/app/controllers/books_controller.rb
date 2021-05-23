@@ -18,6 +18,7 @@ class BooksController < ApplicationController
     @book = Book.new(book_params)
 
     if @book.save
+      RenderBookJob.perform_later @book
       render json: @book, status: :created, location: @book
     else
       render json: @book.errors, status: :unprocessable_entity
@@ -27,6 +28,7 @@ class BooksController < ApplicationController
   # PATCH/PUT /books/1
   def update
     if @book.update(book_params)
+      RenderBookJob.perform_later @book
       render json: @book
     else
       render json: @book.errors, status: :unprocessable_entity
@@ -35,6 +37,7 @@ class BooksController < ApplicationController
 
   # DELETE /books/1
   def destroy
+    @book.purge_files
     @book.destroy
   end
 
