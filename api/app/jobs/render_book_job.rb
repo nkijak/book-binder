@@ -35,6 +35,7 @@ class RenderBookJob < ApplicationJob
           end
           Dir.mktmpdir do |output_dir|
               adoc = "#{temp_dir}/book/dist/raw.adoc"
+              #TODO break up into separate jobs as to not stop processing  
               Asciidoctor.convert_file(
                   adoc,  #TODO how to find
                   to_file: true, 

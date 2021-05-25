@@ -1,4 +1,6 @@
 class BooksController < ApplicationController
+  include ActionController::MimeResponds
+
   before_action :set_book, only: [:show, :update, :destroy, :bind]
 
   # GET /books
@@ -10,8 +12,14 @@ class BooksController < ApplicationController
 
   # GET /books/1
   def show
-    render json: @book
+    respond_to do |format|
+      format.json { render json: @book }
+      #TODO add html?
+      format.pdf { redirect_to rails_blob_path(@book.pdf, disposition: 'attachment')}
+      format.epub { redirect_to rails_blob_path(@book.epub, disposition: 'attachment')}
+    end
   end
+
 
   # POST /books/1/bind
   def bind(*args)
