@@ -1,7 +1,12 @@
 require "test_helper"
 
 class RenderBookJobTest < ActiveJob::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "job attaches book" do
+    book = Book.first
+    assert_not book.epub.attached?
+    assert_not book.pdf.attached?
+    RenderBookJob.perform_now(book)
+    assert book.epub.attached?
+    assert book.pdf.attached?
+  end
 end

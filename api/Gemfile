@@ -38,3 +38,9 @@ end
 
 # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw, :jruby]
+
+# book rendering
+gem 'asciidoctor'
+gem 'pygments.rb'
+gem 'asciidoctor-pdf'
+gem 'asciidoctor-epub3'

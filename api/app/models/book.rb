@@ -11,4 +11,13 @@ class Book < ApplicationRecord
         epub.purge
         pdf.purge
     end
+
+    def as_json(options)
+      self.attributes.merge({
+        'book_archive' => self.book_archive.attributes,
+        'code_archive' => self.code_archive.attributes,
+        'pdf' => self.pdf.attributes,
+        'epub' => self.epub.attributes
+      })
+    end
 end
