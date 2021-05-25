@@ -82,9 +82,11 @@ class RenderBookJob < ApplicationJob
           logger.debug d.entries
           pdfs = d.grep(/\.+pdf/)
           epubs = d.grep(/\.+epub/)
-          logger.info "found #{pdfs.inspect} and #{epubs.inspect}"
+          htmls = d.grep(/\.+html/)
+          logger.info "found #{pdfs.inspect},#{epubs.inspect}, and #{htmls.inspect}"
           book.pdf.attach(io: File.open(File.join(outdir, pdfs.first)), filename: pdfs.first) if pdfs.any?
           book.epub.attach(io: File.open(File.join(outdir, epubs.first)), filename: epubs.first) if epubs.any?
+          book.html.attach(io: File.open(File.join(outdir, htmls.first)), filename: htmls.first) if htmls.any?
           book.save!
         end
       end

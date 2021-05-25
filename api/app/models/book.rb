@@ -4,12 +4,14 @@ class Book < ApplicationRecord
 
     has_one_attached :epub
     has_one_attached :pdf
+    has_one_attached :html
 
     def purge_files
         book_archive.purge
         code_archive.purge
         epub.purge
         pdf.purge
+        html.purge
     end
 
     def as_json(options)
@@ -17,7 +19,8 @@ class Book < ApplicationRecord
         'book_archive' => self.book_archive.attributes,
         'code_archive' => self.code_archive.attributes,
         'pdf' => self.pdf.attributes,
-        'epub' => self.epub.attributes
+        'epub' => self.epub.attributes,
+        'html' => self.html.attributes
       })
     end
 end

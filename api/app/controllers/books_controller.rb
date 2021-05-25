@@ -14,9 +14,11 @@ class BooksController < ApplicationController
   def show
     respond_to do |format|
       format.json { render json: @book }
-      #TODO add html?
-      format.pdf { redirect_to rails_blob_path(@book.pdf, disposition: 'attachment')}
-      format.epub { redirect_to rails_blob_path(@book.epub, disposition: 'attachment')}
+      #FIXME this is kind of janky but works for zero-scale/now
+      format.html { render body: @book.html.download}
+      format.any(:pdf, :epub) do 
+        redirect_to rails_blob_path(@book.send(request.format.to_sym), disposition: 'attachment')
+      end
     end
   end
 
