@@ -1,17 +1,4 @@
-.PHONY:	build-docker
+.PHONY: heroku-prep
 
-TAG?=latest
-IMAGE?=nkijak/book-binder:$(TAG)
-
-
-build-docker:
-	docker build -m 8g -t $(IMAGE) .
-
-shell:
-	docker run --rm \
-	-it \
-	--env DIST=/book \
-	--volume $(PWD):/book \
-	--volume $(PWD)/../Code:/code  \
-	$(IMAGE) \
-	sh
+heroku-prep:
+	bundle lock --add-platform x86_64-linux --add-platform ruby
