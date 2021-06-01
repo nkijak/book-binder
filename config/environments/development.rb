@@ -1,5 +1,7 @@
 require "active_support/core_ext/integer/time"
 
+Bundler.require(*Rails.groups)
+
 Rails.application.configure do
   config.debug_exception_response_format = :api
   # Settings specified here will take precedence over those in config/application.rb.
